@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  database-postgres:
+    container_name: database-postgres
+    image: postgres:latest
+    volumes:
+      - ./db/postgresql/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - PGDATA=/pgdata
+      - POSTGRES_DB=golang
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
