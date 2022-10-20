@@ -61,6 +61,7 @@ func (userRepo *UserRepository) UpdateUser(id string, user *entities.User) error
 		return result.Error
 	}
 
+	//only change ogUser but not interact with user (user is function input) => does not change
 	if err := userRepo.db.Model(&ogUser).Updates(user); err != nil {
 		return err.Error
 	}

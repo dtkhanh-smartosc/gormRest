@@ -80,7 +80,7 @@ func (userService *UserService) DeleteUser(id string) error {
 	}
 	return nil
 }
-func (userService *UserService) UpdateUser(id string, request *dto.CreateUserRequest) (user *dto.User, err error) {
+func (userService *UserService) UpdateUser(id string, request *dto.CreateUserRequest) (*dto.User, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, errors.New(constant.ErrHashCode)
@@ -97,5 +97,7 @@ func (userService *UserService) UpdateUser(id string, request *dto.CreateUserReq
 	if err := userService.UserRepo.UpdateUser(id, userEntities); err != nil {
 		return nil, err
 	}
-	return userService.UserTransformer.UserEntityToDto(userEntities), nil
+	user, err := userService.UserRepo.GetUser(id)
+
+	return userService.UserTransformer.UserEntityToDto(user), nil
 }

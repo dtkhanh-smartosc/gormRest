@@ -79,6 +79,12 @@ func UpdateUser(c *gin.Context) {
 		util.SetResponse(c, http.StatusUnprocessableEntity, err, constant.InvalidRequestBody, nil)
 		return
 	}
+	userTransformer := transformers.NewUserTransformer()
+	errValid := userTransformer.VerifyCreateUserRequest(createUserRequest)
+	if errValid != nil {
+		util.SetResponse(c, http.StatusUnprocessableEntity, errValid, constant.InvalidRequestBody, nil)
+		return
+	}
 	userClient := services.NewUserService()
 	user, err := userClient.UpdateUser(id, createUserRequest)
 	if err != nil {
