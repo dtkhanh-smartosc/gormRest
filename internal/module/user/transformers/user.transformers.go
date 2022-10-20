@@ -4,7 +4,6 @@ import (
 	"github.com/HiBang15/sample-gorm.git/internal/module/user/dto"
 	"github.com/HiBang15/sample-gorm.git/internal/module/user/entities"
 	"github.com/go-playground/validator/v10"
-	"regexp"
 )
 
 type UserTransformer struct {
@@ -37,21 +36,22 @@ func (transformer *UserTransformer) VerifyCreateUserRequest(data *dto.CreateUser
 }
 
 //check by default
-//func ValidatePhoneNumber(sl validator.StructLevel) {
-//	user := sl.Current().Interface().(dto.CreateUserRequest)
-//	if len(user.PhoneNumber) == 10 {
-//		for _, c := range user.PhoneNumber {
-//			if c < '0' || c > '9' {
-//				sl.ReportError(user.PhoneNumber, "phone_number", "PhoneNumber", "vnpnumber", "")
-//			}
-//		}
-//	} else {
-//		sl.ReportError(user.PhoneNumber, "phone_number", "PhoneNumber", "vnpnumber", "")
-//	}
-//}
 func ValidatePhoneNumber(sl validator.StructLevel) {
 	user := sl.Current().Interface().(dto.CreateUserRequest)
-	if match, _ := regexp.MatchString("/(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b/", user.PhoneNumber); match != true {
+	if len(user.PhoneNumber) == 10 {
+		for _, c := range user.PhoneNumber {
+			if c < '0' || c > '9' {
+				sl.ReportError(user.PhoneNumber, "phone_number", "PhoneNumber", "vnpnumber", "")
+			}
+		}
+	} else {
 		sl.ReportError(user.PhoneNumber, "phone_number", "PhoneNumber", "vnpnumber", "")
 	}
 }
+
+//func ValidatePhoneNumber(sl validator.StructLevel) {
+//	user := sl.Current().Interface().(dto.CreateUserRequest)
+//	if match, _ := regexp.MatchString("/(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b/", user.PhoneNumber); match != true {
+//		sl.ReportError(user.PhoneNumber, "phone_number", "PhoneNumber", "vnpnumber", "")
+//	}
+//}
