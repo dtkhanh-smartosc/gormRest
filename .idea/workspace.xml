@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bb612bf-0d46-4a67-bb18-803ff2956d66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/internal/module/user/transformers/user.transformers.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/transformers/user.transformers.go" afterDir="false" />
-    </list>
+    <list default="true" id="7bb612bf-0d46-4a67-bb18-803ff2956d66" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
