@@ -7,7 +7,9 @@ import (
 	"github.com/HiBang15/sample-gorm.git/internal/module/user/transformers"
 	"github.com/HiBang15/sample-gorm.git/internal/util"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
+	"strconv"
 )
 
 func CreateUser(c *gin.Context) {
@@ -93,4 +95,36 @@ func UpdateUser(c *gin.Context) {
 	}
 	util.SetResponse(c, http.StatusOK, nil, constant.UpdateUserSuccess, user)
 	return
+}
+func GetUsersWithPagination(c *gin.Context) {
+	limit := c.Query("limit")
+	pageNumber := c.Query("pageNumber")
+	limitInt, _ := strconv.Atoi(limit)
+	pageNumberInt, _ := strconv.Atoi(pageNumber)
+	userClient := services.NewUserService()
+	users, err := userClient.GetUsersWithPagination(limitInt, pageNumberInt)
+	if err != nil {
+		util.SetResponse(c, http.StatusInternalServerError, err, err.Error(), 0)
+		return
+	}
+	util.SetResponse(c, http.StatusOK, nil, constant.GetUserSuccess, users)
+	return
+}
+
+func GetUserWithSearch(c *gin.Context) {
+	query := c.Query("query")
+	limit := c.Query("limit")
+	pageNumber := c.Query("pageNumber")
+
+	userClient := services.NewUserService()
+	log.Println(query, "whitespace")
+	users, limitInt, pageNumberInt, len, err := userClient.GetUserWithSearch(limit, pageNumber, query)
+
+	if err != nil {
+		util.SetResponse(c, http.StatusInternalServerError, err, err.Error(), 0)
+		return
+	}
+	util.SetResponse(c, http.StatusOK, nil, constant.GetUserSuccess, map[string]interface{}{"users": users, "limit": limitInt, "page number": pageNumberInt, "total": len})
+	return
+
 }

@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bb612bf-0d46-4a67-bb18-803ff2956d66" name="Changes" comment="" />
+    <list default="true" id="7bb612bf-0d46-4a67-bb18-803ff2956d66" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/rest/be-sample-gorm/router/public/public.router.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/rest/be-sample-gorm/router/public/public.router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constant/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/constant/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/module/user/controller/user.controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/controller/user.controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/module/user/repository/user.repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/repository/user.repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/module/user/services/user.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/services/user.service.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,11 +41,11 @@
     "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/home/onlapvn/go-lang/gormRest",
+    "last_opened_file_path": "/home/khanhdt/GolandProjects/gormRest",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build github.com/HiBang15/sample-gorm.git/cmd/be-sample-gorm" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="gormRest" />
       <working_directory value="$PROJECT_DIR$" />
@@ -48,8 +55,18 @@
       <filePath value="$PROJECT_DIR$/cmd/be-sample-gorm/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="gormRest" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <package value="github.com/HiBang15/sample-gorm.git" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/be-sample-gorm/main.go" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Build.go build github.com/HiBang15/sample-gorm.git/cmd/be-sample-gorm" />
       </list>
     </recent_temporary>

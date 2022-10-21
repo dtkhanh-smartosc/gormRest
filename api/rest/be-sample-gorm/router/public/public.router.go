@@ -13,9 +13,11 @@ func SetRouter(router *gin.RouterGroup) {
 	{
 		users.POST("/", controller.CreateUser)
 		users.GET("/", controller.GetUsers)
-		users.GET("/:id", controller.GetUser)
+		users.GET("/:id", controller.GetUser) // users/1?queryName=queryValue
+		users.GET("", controller.GetUsersWithPagination)
 		users.DELETE("/:id", controller.DeleteUser)
 		users.PUT("/:id", controller.UpdateUser)
+		users.GET("/search", controller.GetUserWithSearch)
 	}
 
 	log.Print("Finish init public router BE SAMPLE GORM ....")
