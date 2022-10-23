@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7bb612bf-0d46-4a67-bb18-803ff2956d66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/rest/be-sample-gorm/router/public/public.router.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/rest/be-sample-gorm/router/public/public.router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constant/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/constant/errors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/module/user/controller/user.controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/controller/user.controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/module/user/repository/user.repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/repository/user.repository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/module/user/services/user.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/module/user/services/user.service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,7 +13,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file:///usr/lib/go-1.18" />
+  <component name="GOROOT" url="file:///snap/go/9952" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -41,7 +37,8 @@
     "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/home/khanhdt/GolandProjects/gormRest",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/home/khanhdt/goLang/gormRest",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>

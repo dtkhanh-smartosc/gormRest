@@ -118,7 +118,7 @@ func (userService *UserService) GetUsersWithPagination(limit, pageNumber int) ([
 	return users, nil
 }
 
-func (userService *UserService) GetUserWithSearch(limit, pageNumber, query string) ([]entities.User, int, int, int, error) {
+func (userService *UserService) GetUserWithSearch(limit, pageNumber, query string) ([]dto.User, int, int, int, error) {
 	var limitInt int
 	var pageNumberInt int
 
@@ -142,5 +142,9 @@ func (userService *UserService) GetUserWithSearch(limit, pageNumber, query strin
 	if err != nil {
 		return nil, 0, 0, 0, err
 	}
-	return users, limitInt, pageNumberInt, len, nil
+	var userDto []dto.User
+	for _, user := range users {
+		userDto = append(userDto, *userService.UserTransformer.UserEntityToDto(&user))
+	}
+	return userDto, limitInt, pageNumberInt, len, nil
 }
