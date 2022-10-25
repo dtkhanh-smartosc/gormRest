@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package routeuser;
+
+option go_package=".;";
+
+
+message GetUserRequest {
+  uint64 ID = 1;
+}
+message GetUserResponse {
+    uint64 Id = 1;
+    string FirstName = 2;
+    string LastName = 3;
+    string Email =4;
+    string PhoneNumber= 5;
+    bool IsVerify = 6;
+    uint64 CreatedAt = 7;
+    uint64 UpdatedAt = 8;
+}
+message GetUsersRequest{}
+message PostUserRequest {
+  string FirstName = 1;
+  string LastName = 2;
+  string  Email = 3;
+  string  Password = 4;
+  string PhoneNumber = 5;
+}
+message SearchRequest {
+  string query = 1;
+  string limit = 2;
+  string pageNumber = 3;
+}
+message SearchResponse {
+    uint64 Id = 1;
+    string FirstName = 2;
+    string LastName = 3;
+    string Email =4;
+    string PhoneNumber= 5;
+    bool IsVerify = 6;
+    uint64 CreatedAt = 7;
+    uint64 UpdatedAt = 8;
+    int32 total = 9;
+}
+
+service userGRPCService {
+  rpc GetUser(GetUserRequest) returns(GetUserResponse) {}
+  rpc GetUsers(GetUsersRequest) returns(stream GetUserResponse) {}
+  rpc PostUser(PostUserRequest) returns (GetUserResponse) {}
+  rpc SearchUser(SearchRequest) returns (stream SearchResponse){}
+}

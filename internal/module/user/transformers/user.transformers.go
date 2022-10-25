@@ -3,6 +3,7 @@ package transformers
 import (
 	"github.com/HiBang15/sample-gorm.git/internal/module/user/dto"
 	"github.com/HiBang15/sample-gorm.git/internal/module/user/entities"
+	pb "github.com/HiBang15/sample-gorm.git/proto/pb"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -26,7 +27,24 @@ func (transformer *UserTransformer) UserEntityToDto(data *entities.User) *dto.Us
 		UpdatedAt:   data.UpdatedAt,
 	}
 }
-
+func (transformer *UserTransformer) UserDtoToDPB(data *dto.User) *pb.GetUserResponse {
+	return &pb.GetUserResponse{
+		Id:          data.Id,
+		FirstName:   data.FirstName,
+		LastName:    data.LastName,
+		Email:       data.Email,
+		PhoneNumber: data.PhoneNumber,
+	}
+}
+func (transformer *UserTransformer) CreateUserPBtoDto(data *pb.PostUserRequest) *dto.CreateUserRequest {
+	return &dto.CreateUserRequest{
+		FirstName:   data.FirstName,
+		LastName:    data.LastName,
+		Email:       data.Email,
+		PhoneNumber: data.PhoneNumber,
+		Password:    data.Password,
+	}
+}
 func (transformer *UserTransformer) VerifyCreateUserRequest(data *dto.CreateUserRequest) error {
 	transformer.Validator.RegisterStructValidation(ValidatePhoneNumber, dto.CreateUserRequest{})
 	if errValid := transformer.Validator.Struct(data); errValid != nil {

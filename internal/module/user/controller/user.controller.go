@@ -76,19 +76,19 @@ func DeleteUser(c *gin.Context) {
 }
 func UpdateUser(c *gin.Context) {
 	id := c.Param("id")
-	var createUserRequest *dto.CreateUserRequest
-	if err := c.ShouldBindJSON(&createUserRequest); err != nil {
+	var updateUserRequest *dto.UpdateUserRequest
+	if err := c.ShouldBindJSON(&updateUserRequest); err != nil {
 		util.SetResponse(c, http.StatusUnprocessableEntity, err, constant.InvalidRequestBody, nil)
 		return
 	}
-	userTransformer := transformers.NewUserTransformer()
-	errValid := userTransformer.VerifyCreateUserRequest(createUserRequest)
-	if errValid != nil {
-		util.SetResponse(c, http.StatusUnprocessableEntity, errValid, constant.InvalidRequestBody, nil)
-		return
-	}
+	//userTransformer := transformers.NewUserTransformer()
+	//errValid := userTransformer.VerifyCreateUserRequest(updateUserRequest)
+	//if errValid != nil {
+	//	util.SetResponse(c, http.StatusUnprocessableEntity, errValid, constant.InvalidRequestBody, nil)
+	//	return
+	//}
 	userClient := services.NewUserService()
-	user, err := userClient.UpdateUser(id, createUserRequest)
+	user, err := userClient.UpdateUser(id, updateUserRequest)
 	if err != nil {
 		util.SetResponse(c, http.StatusInternalServerError, err, err.Error(), 0)
 		return

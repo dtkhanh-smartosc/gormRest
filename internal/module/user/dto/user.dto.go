@@ -22,3 +22,12 @@ type CreateUserRequest struct {
 	IsVerify    bool   `json:"is_verify"`
 	Password    string `json:"password" validate:"required"`
 }
+
+type UpdateUserRequest struct {
+	FirstName   string `json:"first_name" `
+	LastName    string `json:"last_name" `
+	Email       string `json:"email" validate:"email"`
+	PhoneNumber string `json:"phone_number"`
+	IsVerify    bool   `json:"is_verify"`
+	Password    string `json:"password"`
+}

@@ -87,7 +87,7 @@ func (userService *UserService) DeleteUser(id string) error {
 	return nil
 }
 
-func (userService *UserService) UpdateUser(id string, request *dto.CreateUserRequest) (*dto.User, error) {
+func (userService *UserService) UpdateUser(id string, request *dto.UpdateUserRequest) (*dto.User, error) {
 	//generate hashed password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 	if err != nil {
