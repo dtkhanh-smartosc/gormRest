@@ -6,7 +6,7 @@ option go_package=".;";
 
 
 message GetUserRequest {
-  uint64 ID = 1;
+    uint64 Id = 1;
 }
 message GetUserResponse {
     uint64 Id = 1;
@@ -32,20 +32,21 @@ message SearchRequest {
   string pageNumber = 3;
 }
 message SearchResponse {
-    uint64 Id = 1;
-    string FirstName = 2;
-    string LastName = 3;
-    string Email =4;
-    string PhoneNumber= 5;
-    bool IsVerify = 6;
-    uint64 CreatedAt = 7;
-    uint64 UpdatedAt = 8;
-    int32 total = 9;
+    repeated GetUserResponse users = 1;
+    int32 limit = 2;
+    int32 pageNumber = 3;
+    int32 total = 4;
 }
-
+message DeleteRequest{
+  uint64 Id = 1;
+}
+message DeleteResponse {
+  string result = 1;
+}
 service userGRPCService {
   rpc GetUser(GetUserRequest) returns(GetUserResponse) {}
   rpc GetUsers(GetUsersRequest) returns(stream GetUserResponse) {}
   rpc PostUser(PostUserRequest) returns (GetUserResponse) {}
-  rpc SearchUser(SearchRequest) returns (stream SearchResponse){}
+  rpc SearchUser(SearchRequest) returns (SearchResponse){}
+  rpc DeleteUser(DeleteRequest) returns (DeleteResponse) {}
 }

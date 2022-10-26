@@ -25,7 +25,8 @@ type UserGRPCServiceClient interface {
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (UserGRPCService_GetUsersClient, error)
 	PostUser(ctx context.Context, in *PostUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
-	SearchUser(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (UserGRPCService_SearchUserClient, error)
+	SearchUser(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
+	DeleteUser(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 }
 
 type userGRPCServiceClient struct {
@@ -86,36 +87,22 @@ func (c *userGRPCServiceClient) PostUser(ctx context.Context, in *PostUserReques
 	return out, nil
 }
 
-func (c *userGRPCServiceClient) SearchUser(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (UserGRPCService_SearchUserClient, error) {
-	stream, err := c.cc.NewStream(ctx, &UserGRPCService_ServiceDesc.Streams[1], "/routeuser.userGRPCService/SearchUser", opts...)
+func (c *userGRPCServiceClient) SearchUser(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error) {
+	out := new(SearchResponse)
+	err := c.cc.Invoke(ctx, "/routeuser.userGRPCService/SearchUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &userGRPCServiceSearchUserClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type UserGRPCService_SearchUserClient interface {
-	Recv() (*SearchResponse, error)
-	grpc.ClientStream
-}
-
-type userGRPCServiceSearchUserClient struct {
-	grpc.ClientStream
-}
-
-func (x *userGRPCServiceSearchUserClient) Recv() (*SearchResponse, error) {
-	m := new(SearchResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
+func (c *userGRPCServiceClient) DeleteUser(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
+	out := new(DeleteResponse)
+	err := c.cc.Invoke(ctx, "/routeuser.userGRPCService/DeleteUser", in, out, opts...)
+	if err != nil {
 		return nil, err
 	}
-	return m, nil
+	return out, nil
 }
 
 // UserGRPCServiceServer is the server API for UserGRPCService service.
@@ -125,7 +112,8 @@ type UserGRPCServiceServer interface {
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	GetUsers(*GetUsersRequest, UserGRPCService_GetUsersServer) error
 	PostUser(context.Context, *PostUserRequest) (*GetUserResponse, error)
-	SearchUser(*SearchRequest, UserGRPCService_SearchUserServer) error
+	SearchUser(context.Context, *SearchRequest) (*SearchResponse, error)
+	DeleteUser(context.Context, *DeleteRequest) (*DeleteResponse, error)
 }
 
 // UnimplementedUserGRPCServiceServer should be embedded to have forward compatible implementations.
@@ -141,8 +129,11 @@ func (UnimplementedUserGRPCServiceServer) GetUsers(*GetUsersRequest, UserGRPCSer
 func (UnimplementedUserGRPCServiceServer) PostUser(context.Context, *PostUserRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostUser not implemented")
 }
-func (UnimplementedUserGRPCServiceServer) SearchUser(*SearchRequest, UserGRPCService_SearchUserServer) error {
-	return status.Errorf(codes.Unimplemented, "method SearchUser not implemented")
+func (UnimplementedUserGRPCServiceServer) SearchUser(context.Context, *SearchRequest) (*SearchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchUser not implemented")
+}
+func (UnimplementedUserGRPCServiceServer) DeleteUser(context.Context, *DeleteRequest) (*DeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
 
 // UnsafeUserGRPCServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -213,25 +204,40 @@ func _UserGRPCService_PostUser_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserGRPCService_SearchUser_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SearchRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+func _UserGRPCService_SearchUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
 	}
-	return srv.(UserGRPCServiceServer).SearchUser(m, &userGRPCServiceSearchUserServer{stream})
+	if interceptor == nil {
+		return srv.(UserGRPCServiceServer).SearchUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routeuser.userGRPCService/SearchUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserGRPCServiceServer).SearchUser(ctx, req.(*SearchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-type UserGRPCService_SearchUserServer interface {
-	Send(*SearchResponse) error
-	grpc.ServerStream
-}
-
-type userGRPCServiceSearchUserServer struct {
-	grpc.ServerStream
-}
-
-func (x *userGRPCServiceSearchUserServer) Send(m *SearchResponse) error {
-	return x.ServerStream.SendMsg(m)
+func _UserGRPCService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserGRPCServiceServer).DeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routeuser.userGRPCService/DeleteUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserGRPCServiceServer).DeleteUser(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 // UserGRPCService_ServiceDesc is the grpc.ServiceDesc for UserGRPCService service.
@@ -249,16 +255,19 @@ var UserGRPCService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "PostUser",
 			Handler:    _UserGRPCService_PostUser_Handler,
 		},
+		{
+			MethodName: "SearchUser",
+			Handler:    _UserGRPCService_SearchUser_Handler,
+		},
+		{
+			MethodName: "DeleteUser",
+			Handler:    _UserGRPCService_DeleteUser_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "GetUsers",
 			Handler:       _UserGRPCService_GetUsers_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "SearchUser",
-			Handler:       _UserGRPCService_SearchUser_Handler,
 			ServerStreams: true,
 		},
 	},
